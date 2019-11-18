@@ -5,18 +5,31 @@ const state = {
   isLoggedIn: false,
 };
 
+const mutations = {
+  setUser(user) {
+    if (user) {
+      state.user = user;
+      state.isLoggedIn = true;
+    } else {
+      state.user = {};
+      state.isLoggedIn = false;
+    }
+  },
+};
+
 const actions = {
-  // eslint-disable-next-line no-unused-vars
-  async login({ context }) {
+  async login() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await firebase.auth().signInWithPopup(provider);
-    // eslint-disable-next-line no-console
-    console.log(result.user);
+    await firebase.auth().signInWithPopup(provider);
+  },
+  async logout() {
+    await firebase.auth().signOut();
   },
 };
 
 export default {
   namespaced: true,
   state,
+  mutations,
   actions,
 };
