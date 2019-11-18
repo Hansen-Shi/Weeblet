@@ -9,7 +9,7 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="field is-grouped">
-              <p class="control" v-if="isLoggedIn">
+              <p class="control" v-if="!isLoggedIn">
                 <a class="button is-Danger" @click="login()">
                   Login
                 </a>
@@ -17,9 +17,9 @@
               <p class="control" v-if="isLoggedIn">
                 <span class="profile">
                   <figure>
-                    <img :src="user.image">
+                    <img src="https://lh3.googleusercontent.com/a-/AAuE7mCmbZLlBcUbK_uwem_b1GOgQiobiehvQ0CdYWtmPQ">
                   </figure>
-                  <figcaption>{{user.name}}</figcaption>
+                  <figcaption>{Hello}</figcaption>
                 </span>
                 <a class="button is-primary" @click="logout()">
                   Logout
@@ -45,5 +45,11 @@ export default {
 <style lang="scss">
 .main {
   margin-top: 2em
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 </style>
