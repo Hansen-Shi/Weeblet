@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
 import Vue from 'vue';
 
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
+
+import firebase from './firebase';
 
 import App from './App.vue';
 import router from './router';
