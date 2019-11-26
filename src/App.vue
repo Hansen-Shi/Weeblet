@@ -14,7 +14,7 @@
                   Login
                 </a>
               </p>
-              <p class="control" v-if="isLoggedIn">
+              <p class="control loggedIn" v-if="isLoggedIn">
                 <span class="profile">
                   <figure>
                     <img :src="user.image">
@@ -45,6 +45,11 @@ export default {
 <style lang="scss">
 .main {
   margin-top: 2em
+}
+
+.loggedIn {
+  display: flex;
+  flex-direction: row;
 }
 
 .profile {
