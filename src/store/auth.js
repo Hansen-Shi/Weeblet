@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 import firebase from '@/firebase';
 
 const state = {
@@ -6,7 +7,7 @@ const state = {
 };
 
 const mutations = {
-  setUser(user) {
+  setUser(state, user) {
     if (user) {
       state.user = user;
       state.isLoggedIn = true;

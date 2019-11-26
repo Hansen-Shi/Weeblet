@@ -17,9 +17,9 @@
               <p class="control" v-if="isLoggedIn">
                 <span class="profile">
                   <figure>
-                    <img src="https://lh3.googleusercontent.com/a-/AAuE7mCmbZLlBcUbK_uwem_b1GOgQiobiehvQ0CdYWtmPQ">
+                    <img :src="user.image">
                   </figure>
-                  <figcaption>{Hello}</figcaption>
+                  <figcaption>{{user.name}}</figcaption>
                 </span>
                 <a class="button is-primary" @click="logout()">
                   Logout
