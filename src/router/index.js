@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Subreddits from '../views/Subreddits.vue';
 import Subreddit from '../views/Subreddit.vue';
 
+
 Vue.use(Router);
 
 export default new Router({
@@ -20,7 +21,7 @@ export default new Router({
     },
     {
       path: '/w/:name',
-      name: 'subreddot',
+      name: 'subreddit',
       component: Subreddit,
 
     },
