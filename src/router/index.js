@@ -2,8 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '../views/Home.vue';
 import Subreddits from '../views/Subreddits.vue';
-// import Subreddit from './views/Subreddit.vue';
-// import Post from './views/Post.vue';
+import Subreddit from '../views/Subreddit.vue';
 
 Vue.use(Router);
 
@@ -18,6 +17,12 @@ export default new Router({
       path: '/subreddits',
       name: 'subreddits',
       component: Subreddits,
+    },
+    {
+      path: '/w/:name',
+      name: 'subreddot',
+      component: Subreddit,
+
     },
   ],
 });
