@@ -1,7 +1,8 @@
+/* eslint-disable */
 <template>
   <section>
-    <h1>{{subreddit.name}}</h1>
-      <form @submit.prevent="addPost()">
+    <button @click="hideForm = !hideForm" class="button is-info">Make a Post!</button>
+      <form v-if="hideForm" @submit.prevent="addPost()">
         <b-field label = 'Title'>
           <b-input v-model="post.title" required></b-input>
         </b-field>
@@ -13,14 +14,16 @@
         </b-field>
         <button class="button is-info">Submit</button>
       </form>
+      <pre>{{posts}}</pre>
   </section>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
   data: () => ({
+    hideForm: false,
     post: {
       title: '',
       description: '',
@@ -30,7 +33,20 @@ export default {
   mounted() {
     this.initSubreddit(this.$route.params.name);
   },
-  computed: mapState('subreddit', ['posts', 'subreddit']),
+  watch: {
+    '$route.params.name': function () {
+      this.initSubreddit(this.$route.params.name);
+    },
+    subreddit() {
+      if (this.subreddit.id) {
+        this.initPost(this.subreddit.id);
+      }
+    },
+  },
+  computed: {
+    ...mapState('subreddit', ['posts']),
+    ...mapGetters('subreddit', ['subreddit']),
+  },
   methods: {
     ...mapActions('subreddit', ['createPost', 'initSubreddit', 'initPost']),
     async addPost() {
