@@ -32,6 +32,9 @@ const actions = {
   initPost: firestoreAction(({ bindFirestoreRef }, subreddit_id) => {
     bindFirestoreRef('posts', posts.where('subreddit_id', '==', subreddit_id));
   }),
+  async deletePost(_, post_id) {
+    await posts.doc(post_id).delete();
+  },
 };
 
 export default {
