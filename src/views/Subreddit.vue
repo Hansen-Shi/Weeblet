@@ -1,7 +1,7 @@
 <template>
   <section>
     <button @click="hideForm = !hideForm" class="button is-info">Make a Post!</button>
-      <form v-if="hideForm" @submit.prevent="addPost()">
+      <form v-if="!hideForm" @submit.prevent="addPost()">
         <b-field label = 'Title'>
           <b-input v-model="post.title" required></b-input>
         </b-field>
@@ -13,38 +13,35 @@
         </b-field>
         <button class="button is-info">Submit</button>
       </form>
-      <article class="media">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="https://bulma.io/images/placeholders/128x128.png">
-          </p>
-        </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-              <br>
-              Lorem ipsum dolor sit amet, consectetur adipiscing
-            </p>
+      <div class="posts columns is-multiline">
+        <div class="card column is-4" v-for="post in posts" :key="post.id">
+          <div class="card-image" v-if="isImage(post.link)">
+            <figure class>
+              <img :src="post.link" alt="Post image">
+            </figure>
           </div>
-          <nav class="level is-mobile">
-            <div class="level-left">
-              <a class="level-item">
-                <span class="icon is-small"><i class="fas fa-reply"></i></span>
-              </a>
-              <a class="level-item">
-                <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-              </a>
-              <a class="level-item">
-                <span class="icon is-small"><i class="fas fa-heart"></i></span>
-              </a>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-4" v-if="!post.link">{{post.title}}</p>
+                <p class="title is-4" v-if="post.link">
+                  <a :href="post.link" target="_blank">{{post.title}}</a></p>
+                <p class="subtitle is-6">@johnsmith</p>
+              </div>
             </div>
-          </nav>
+            <div class="content">
+              {{post.description}}
+              <br>
+              <time datetime="2016-1-1">{{post.created_at}}</time>
+            </div>
+          </div>
         </div>
-        <div class="media-right">
-          <button class="delete"></button>
-        </div>
-      </article>
+    </div>
   </section>
 </template>
 
@@ -53,7 +50,7 @@ import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
   data: () => ({
-    hideForm: false,
+    hideForm: true,
     post: {
       title: '',
       description: '',
@@ -79,12 +76,27 @@ export default {
     ...mapGetters('subreddit', ['subreddit']),
   },
   methods: {
+    isImage(url){
+      return url.match(/png|jpg|jpeg|gif/)
+    },
     ...mapActions('subreddit', ['createPost', 'initSubreddit', 'initPost']),
     async addPost() {
       if (this.post.title && (this.post.description || this.post.link)) {
-        await this.createPost(this.post);
+        this.createPost(this.post);
+        this.post = {
+          title: '',
+          description: '',
+          link: '',
+        }
+        this.hideForm = true;
       }
     },
   },
 };
 </script>
+
+<style>
+  .posts {
+    margin-top: 2em;
+  }
+</style>
