@@ -1,5 +1,7 @@
 # weeblet-client
 
+## Hosted at: https://breadit-9f380.web.app/#/
+
 ## Project setup
 ```
 npm install
